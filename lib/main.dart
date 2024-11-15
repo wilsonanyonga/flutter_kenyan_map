@@ -38,11 +38,23 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_geojson/flutter_map_geojson.dart';
 // ignore: depend_on_referenced_packages
 import 'package:latlong2/latlong.dart';
 
+// Future<void> processData() async {
+//     String kenyanMap = await rootBundle
+//         .loadString('assets/ken_iebc_subcounties_counties.json');
+//     // parse a small test geoJson
+//     // normally one would use http to access geojson on web and this is
+//     // the reason why this funcyion is async.
+//     geoJsonParser.parseGeoJsonAsString(kenyanMap);
+//   }
+
+Future<String> kenyanMap =
+    rootBundle.loadString('assets/ken_iebc_subcounties_counties.json');
 String testGeoJson = '''
 {
   "type": "FeatureCollection",
@@ -272,7 +284,10 @@ class _MyHomePageState extends State<MyHomePage> {
     // parse a small test geoJson
     // normally one would use http to access geojson on web and this is
     // the reason why this funcyion is async.
-    geoJsonParser.parseGeoJsonAsString(testGeoJson);
+    // geoJsonParser.parseGeoJsonAsString(testGeoJson);
+    String kenyanMap = await rootBundle
+        .loadString('assets/maps/ken_iebc_subcounties_counties.json');
+    geoJsonParser.parseGeoJsonAsString(kenyanMap);
   }
 
   @override
@@ -309,10 +324,10 @@ class _MyHomePageState extends State<MyHomePage> {
             initialZoom: 14,
           ),
           children: [
-            TileLayer(
-                urlTemplate:
-                    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                subdomains: const ['a', 'b', 'c']),
+            // TileLayer(
+            //     urlTemplate:
+            //         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            //     subdomains: const ['a', 'b', 'c']),
             //userAgentPackageName: 'dev.fleaflet.flutter_map.example',
             loadingData
                 ? const Center(child: CircularProgressIndicator())
